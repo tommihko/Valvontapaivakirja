@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#17365d">
+<meta name="description" content="Paikallinen, offline-käyttöinen työmaan valvontapäiväkirja.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<title>Valvontapäiväkirja</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#202b38;background:#f3f6fa}
+*{box-sizing:border-box}body{margin:0;padding:0 0 30px}
+header{background:#17365d;color:white;padding:18px max(16px,calc((100% - 760px)/2));position:sticky;top:0;z-index:2;box-shadow:0 2px 8px #0002}
+header h1{font-size:20px;margin:0}header p{font-size:12px;margin:4px 0 0;color:#dbe7f4}
+main{max-width:760px;margin:auto;padding:14px}
+.card{background:white;border:1px solid #dce3eb;border-radius:14px;padding:15px;margin:0 0 13px;box-shadow:0 1px 3px #10203008}
+h2{font-size:16px;margin:0 0 12px;color:#17365d}h3{font-size:14px;margin:18px 0 8px;color:#245a87}
+label{display:block;font-size:12px;font-weight:700;color:#526273;margin:10px 0 5px}
+input,textarea,select{width:100%;padding:11px;border:1px solid #cbd5df;border-radius:9px;background:#fbfcfe;font:inherit;font-size:15px;color:#202b38}
+textarea{min-height:78px;resize:vertical}
+button,.filebtn{border:0;border-radius:9px;padding:11px 14px;background:#e8eef5;color:#17365d;font-weight:700;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+button.primary{background:#1769aa;color:white}button.danger{background:#fff0ef;color:#a52a20}
+button:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1}
+.small{font-size:12px;color:#667789}.muted{color:#667789}
+.visit{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #dce3eb;border-radius:10px;padding:12px;margin-top:8px}
+.visit strong{display:block}.visit small{color:#667789}
+.photo{border:1px solid #dce3eb;border-radius:10px;padding:10px;margin:10px 0}
+.photo img{display:block;max-width:100%;max-height:260px;object-fit:contain;margin:8px auto;border-radius:7px;background:#eef2f6}
+.photo .photo-actions{display:flex;justify-content:space-between;align-items:center}
+hr{border:0;border-top:1px solid #e5eaf0;margin:15px 0}
+.hidden{display:none!important}
+#toast{position:fixed;bottom:15px;left:50%;transform:translateX(-50%);background:#172b40;color:white;padding:10px 16px;border-radius:20px;font-size:13px;z-index:5;max-width:90%;text-align:center}
+footer{max-width:760px;margin:0 auto;padding:0 14px}
+@media(min-width:600px){.two{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}}
+@media print{header,.no-print,footer{display:none!important}body{background:white}main{max-width:none;padding:0}.card{box-shadow:none;border:0;padding:0}.visit{break-inside:avoid}.photo{break-inside:avoid}input,textarea{border:0;padding:2px;background:white}textarea{min-height:0}}
+</style>
+</head>
+<body>
+<header><h1>Työmaan valvontapäiväkirja</h1><p id="connection">Paikallinen tallennus · Offline-käyttö</p></header>
+<main>
+<section class="card" id="projectCard">
+ <h2>Hankkeen tiedot</h2>
+ <label>Kohde / taloyhtiö</label><input id="project" placeholder="Esim. As Oy Esimerkkikatu 1">
+ <div class="two">
+  <div><label>Urakka</label><input id="contract" placeholder="Esim. Vesikattoremontti"></div>
+  <div><label>Urakoitsija</label><input id="contractor" placeholder="Urakoitsijan nimi"></div>
+ </div>
+ <label>Valvoja</label><input id="supervisor" placeholder="Valvojan nimi">
+</section>
+<section class="card no-print">
+ <div class="row" style="align-items:center"><h2 style="margin:0;flex:1">Työmaakäynnit</h2><button class="primary" id="newVisit">＋ Uusi käynti</button></div>
+ <div id="visitList" class="small" style="margin-top:10px">Ei vielä käyntejä.</div>
+</section>
+<section class="card hidden" id="editor">
+ <div class="row" style="align-items:center"><h2 id="editorTitle" style="flex:1;margin:0">Työmaakäynti</h2><button id="closeEditor" class="no-print">Sulje</button></div>
+ <div class="two">
+  <div><label>Päivämäärä</label><input type="date" id="date"></div>
+  <div><label>Kellonaika</label><input type="time" id="time"></div>
+ </div>
+ <label>Työvaihe</label><input id="stage" placeholder="Esim. Julkisivun pesu">
+ <label>Paikalla olijat</label><textarea id="attendees" placeholder="Nimet ja organisaatiot"></textarea>
+ <h3>Työmaan tilanne</h3>
+ <label>Käynnissä olevat työt</label><textarea id="work" placeholder="Mitä työmaalla tehtiin?"></textarea>
+ <label>Valvonnan havainnot</label><textarea id="observations" placeholder="Mitä havaitsit?"></textarea>
+ <label>Puutteet ja korjaustarpeet</label><textarea id="defects" placeholder="Puutteet, poikkeamat ja edellytetyt korjaukset"></textarea>
+ <label>Muut huomiot</label><textarea id="notes" placeholder="Muut asiat"></textarea>
+ <hr><div class="row" style="align-items:center"><h3 style="flex:1;margin:0">Valokuvat <span class="small" id="photoCount"></span></h3><label class="filebtn no-print" style="margin:0">＋ Lisää kuvia<input id="photoInput" type="file" accept="image/*" capture="environment" multiple hidden></label></div>
+ <p class="small">Valitse kamera tai galleria. Kuvat tallennetaan tähän puhelimeen.</p>
+ <div id="photos"></div>
+ <hr><div class="row" style="align-items:center"><h3 style="flex:1;margin:0">Sovitut toimenpiteet</h3><button id="addAction" class="no-print">＋ Lisää</button></div>
+ <div id="actions"></div>
+ <div class="row no-print" style="margin-top:18px"><button class="primary" id="saveVisit">Tallenna käynti</button><button id="printVisit">Tulosta / PDF</button></div>
+</section>
+<section class="card no-print">
+ <h2>Tietojen varmuuskopiointi</h2>
+ <p class="small">Kaikki tiedot ja kuvat tallennetaan vain tähän selaimeen/puhelimeen. Vie varmuuskopio säännöllisesti ja säilytä tiedosto turvallisessa paikassa.</p>
+ <div class="row"><button id="backup" class="primary">Vie varmuuskopio</button><label class="filebtn" style="margin:0">Tuo varmuuskopio<input type="file" id="restore" accept="application/json,.json" hidden></label></div>
+ <button id="printAll" style="width:100%;margin-top:10px">Tulosta koko päiväkirja / PDF</button>
+ <p class="small">Huomio: selaimen tietojen tyhjentäminen tai puhelimen vaihtaminen voi poistaa paikalliset tiedot. Varmuuskopiointi on tärkeää.</p>
+</section>
+</main>
+<footer class="small">Valvontapäiväkirja · Toimii myös ilman verkkoyhteyttä, kun sovellus on avattu ja asennettu kerran.</footer>
+<div id="toast" class="hidden" role="status"></div>
+<script src="app.js"></script>
+</body></html>
