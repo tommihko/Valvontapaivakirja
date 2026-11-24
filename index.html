@@ -27,7 +27,7 @@ button:disabled{opacity:.45;cursor:default}
 .visit{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #dce3eb;border-radius:10px;padding:12px;margin-top:8px}
 .visit strong{display:block}.visit small{color:#667789}
 .photo{border:1px solid #dce3eb;border-radius:10px;padding:10px;margin:10px 0}
-.photo img{display:block;max-width:100%;max-height:260px;object-fit:contain;margin:8px auto;border-radius:7px;background:#eef2f6}
+.photo img{display:block;max-width:100%;max-height:520px;object-fit:contain;margin:8px auto;border-radius:7px;background:#eef2f6}
 .photo .photo-actions{display:flex;justify-content:space-between;align-items:center}
 hr{border:0;border-top:1px solid #e5eaf0;margin:15px 0}
 .hidden{display:none!important}
@@ -41,18 +41,22 @@ footer{max-width:760px;margin:0 auto;padding:0 14px}
 <header><h1>Työmaan valvontapäiväkirja</h1><p id="connection">Paikallinen tallennus · Offline-käyttö</p></header>
 <main>
 <section class="card" id="projectCard">
+ <div class="row" style="align-items:center"><h2 style="margin:0;flex:1">Valvontakohde</h2><button class="primary no-print" id="newProject">＋ Uusi kohde</button></div>
+ <label>Valitse kohde</label><select id="projectSelect" aria-label="Valitse valvontakohde"></select>
+ <hr>
  <h2>Hankkeen tiedot</h2>
  <label>Kohde / taloyhtiö</label><input id="project" placeholder="Esim. As Oy Esimerkkikatu 1">
  <div><label>Osoite</label><input id="address" placeholder="Kohteen katuosoite ja paikkakunta"></div>
- <label>Tilaaja</label><input id="client" placeholder="Tilaajan nimi / taloyhtiö">
+ <label>Tilaaja (5 riviä)</label><textarea id="client" rows="5" placeholder="Yritys / taloyhtiö&#10;Yhteyshenkilö&#10;Puhelinnumero&#10;Sähköposti&#10;Lisätieto"></textarea>
  <div class="two">
   <div><label>Urakka</label><input id="contract" placeholder="Esim. Vesikattoremontti"></div>
-  <div><label>Urakoitsija</label><input id="contractor" placeholder="Urakoitsijan nimi"></div>
+  <div><label>Urakoitsija (4 riviä)</label><textarea id="contractor" rows="4" placeholder="Yrityksen nimi&#10;Vastaava mestari&#10;Puhelinnumero&#10;Sähköposti"></textarea></div>
  </div>
- <label>Valvoja</label><input id="supervisor" placeholder="Valvojan nimi">
+ <label>Valvoja (4 riviä)</label><textarea id="supervisor" rows="4" placeholder="Yritys / valvoja&#10;Yhteyshenkilö&#10;Puhelinnumero&#10;Sähköposti"></textarea>
 </section>
 <section class="card no-print">
  <div class="row" style="align-items:center"><h2 style="margin:0;flex:1">Työmaakäynnit</h2><button class="primary" id="newVisit">＋ Uusi käynti</button></div>
+ <p class="small" id="visitProjectName"></p>
  <div id="visitList" class="small" style="margin-top:10px">Ei vielä käyntejä.</div>
 </section>
 <section class="card hidden" id="editor">
