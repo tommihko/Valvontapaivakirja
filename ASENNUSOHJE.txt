@@ -1,24 +1,18 @@
-VALVONTAPÄIVÄKIRJA – PWA-ASENNUSPAKETTI
+VALVONTAPÄIVÄKIRJA – PÄIVITYS
 
-Tämä on itsenäinen, paikallisesti tallentava verkkosovellus. Se ei tarvitse käyttäjätiliä eikä palvelinta tietojen tallentamiseen. Sovellus toimii offline-tilassa sen jälkeen, kun se on avattu verkko-osoitteesta ja asennettu kerran.
+Tässä versiossa on seuraavat muutokset:
+- Hankkeen tietoihin lisätty osoite ja tilaaja.
+- PDF-tulosteeseen lisätty erillinen kansilehti, jolla hankkeen tiedot näkyvät vain kerran.
+- Valokuvat tulostuvat kaksi rinnakkain kuvateksteineen.
+- Aiemmin tallennetut käynnit ja kuvat säilyvät samalla laitteella, kun sovellus päivitetään normaalisti.
 
-TÄRKEÄÄ:
-- PWA:n asennus ja offline-välimuisti vaativat HTTPS-verkkosivun (tai localhostin). ZIP-tiedoston avaaminen suoraan puhelimessa ei asenna PWA:ta.
-- Tiedot ja valokuvat tallentuvat vain kyseisen selaimen paikalliseen IndexedDB-tallennukseen. Ne eivät siirry automaattisesti toiseen puhelimeen tai tietokoneeseen.
-- Vie varmuuskopio sovelluksen painikkeella säännöllisesti. JSON-varmuuskopio sisältää myös kuvat.
-- Älä tyhjennä selaimen sivustotietoja ennen varmuuskopiointia.
+PÄIVITYS GITHUB PAGESIIN
+1. Pura ZIP-tiedosto tietokoneella.
+2. Avaa GitHubissa oma valvontapaivakirja-repository.
+3. Valitse Add file -> Upload files.
+4. Vedä kaikki ZIP-paketin tiedostot repositoryn juureen. Hyväksy samannimisten tiedostojen korvaaminen.
+5. Paina Commit changes.
+6. Odota muutama minuutti ja avaa sovellus uudelleen internet-yhteydellä.
 
-HELPPO JULKAISUTAPA: GitHub Pages
-1. Kirjaudu GitHubiin ja luo uusi julkinen repository, esim. valvontapaivakirja.
-2. Pura tämän ZIP-paketin sisältö tietokoneella.
-3. Lisää kaikki viisi tiedostoa ja kaksi PNG-kuvaketta repositoryn juureen (index.html, app.js, sw.js, manifest.webmanifest, icon-192.png, icon-512.png).
-4. Repositoryn Settings → Pages → Build and deployment: valitse Deploy from a branch, Branch main ja folder /(root), tallenna.
-5. Odota julkaisua ja avaa GitHub Pagesin antama HTTPS-osoite Android-puhelimen Chromessa.
-6. Chrome-valikosta valitse Asenna sovellus tai Lisää aloitusnäyttöön.
-7. Avaa sovellus aloitusnäytön kuvakkeesta. Avaa se ensin verkossa vähintään kerran, jotta offline-tiedostot latautuvat.
-
-PÄIVITYKSET:
-Kun sovelluksen koodia päivitetään, päivitä tiedostot GitHubiin ja avaa sovellus verkossa, jotta uusi versio latautuu.
-
-YKSITYISYYS:
-Sovelluksen tiedot eivät lähde automaattisesti mihinkään palveluun. GitHub Pagesissa julkaistaan vain sovelluksen ohjelmatiedostot, ei työmaakäyntien tietoja.
+HUOMAUTUS TIETOJEN SÄILYMISESTÄ
+Sovelluksen aiemmat tiedot säilyvät laitteen selaimen paikallisessa tallennuksessa, koska tietokannan tunnistetta ei ole muutettu. Päivitys ei kuitenkaan korvaa säännöllisen varmuuskopioinnin tarvetta. Vie varmuuskopio ennen päivitystä varmuuden vuoksi.
