@@ -26,7 +26,7 @@ button:disabled{opacity:.45;cursor:default}
 .small{font-size:12px;color:#667789}.muted{color:#667789}
 .visit{display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid #dce3eb;border-radius:10px;padding:12px;margin-top:8px}
 .visit strong{display:block}.visit small{color:#667789}
-.photo{border:1px solid #dce3eb;border-radius:10px;padding:10px;margin:10px 0}.wr-check{border:1px solid #e3e9ef;border-radius:10px;padding:10px;margin:10px 0}.wr-photo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.wr-photo-grid img{width:100%;height:150px;object-fit:contain;background:#f3f6fa;border-radius:7px}.wr-photo{border:1px solid #e0e6ed;border-radius:8px;padding:6px;margin:6px 0}.wr-photo button{margin-top:4px}
+.photo{border:1px solid #dce3eb;border-radius:10px;padding:10px;margin:10px 0}
 .photo img{display:block;max-width:100%;max-height:520px;object-fit:contain;margin:8px auto;border-radius:7px;background:#eef2f6}
 .photo .photo-actions{display:flex;justify-content:space-between;align-items:center}
 hr{border:0;border-top:1px solid #e5eaf0;margin:15px 0}
@@ -54,16 +54,6 @@ footer{max-width:760px;margin:0 auto;padding:0 14px}
  </div>
  <label>Valvoja (4 riviä)</label><textarea id="supervisor" rows="4" placeholder="Yritys / valvoja&#10;Yhteyshenkilö&#10;Puhelinnumero&#10;Sähköposti"></textarea>
 </section>
-<section class="card no-print" id="templateCard">
- <h2>Raporttipohjan valinta</h2>
- <label>Valitse käytettävä raporttipohja</label>
- <div class="row"><select id="templateSelect"><option value="diary">Työmaan valvontapäiväkirja</option><option value="wetroom">Märkätilan valvontapöytäkirja</option></select><button class="primary" id="createTemplateReport">＋ Luo raportti</button></div>
- <p class="small">Valinta määrittää, millainen uusi raportti luodaan valittuun valvontakohteeseen.</p>
-</section>
-<section class="card no-print" id="wetroomListCard">
- <div class="row" style="align-items:center"><h2 style="margin:0;flex:1">Märkätilan valvontapöytäkirjat</h2><span class="small" id="wetroomProjectName"></span></div>
- <div id="wetroomList" class="small" style="margin-top:10px">Ei vielä märkätilaraportteja.</div>
-</section>
 <section class="card no-print">
  <div class="row" style="align-items:center"><h2 style="margin:0;flex:1">Työmaakäynnit</h2><button class="primary" id="newVisit">＋ Uusi käynti</button></div>
  <p class="small" id="visitProjectName"></p>
@@ -89,44 +79,6 @@ footer{max-width:760px;margin:0 auto;padding:0 14px}
  <hr><div class="row" style="align-items:center"><h3 style="flex:1;margin:0">Sovitut toimenpiteet</h3><button id="addAction" class="no-print">＋ Lisää</button></div>
  <div id="actions"></div>
  <div class="row no-print" style="margin-top:18px"><button class="primary" id="saveVisit">Tallenna käynti</button><button id="printVisit">Tulosta / PDF</button></div>
-</section>
-<section class="card hidden" id="wetroomEditor">
- <div class="row" style="align-items:center"><h2 id="wetroomEditorTitle" style="flex:1;margin:0">Märkätilan valvontapöytäkirja</h2><button id="closeWetroomEditor" class="no-print">Sulje</button></div>
- <div class="two">
-  <div><label>Märkätilojen vedeneristäjä</label><input id="wrInstaller" placeholder="Yritys ja työn suorittaja"></div>
-  <div><label>Tarkastaja</label><input id="wrInspector" placeholder="Tarkastajan nimi"></div>
-  <div><label>Tarkastuspäivämäärä</label><input id="wrDate" type="date"></div>
-  <div><label>Tilaaja</label><input id="wrClient" placeholder="Tilaaja / taloyhtiö"></div>
- </div>
- <p class="small"><b>Työn tilaaja vastaa luvanvaraisuudesta.</b></p>
- <hr><h3>1. Purkuvaiheen tarkastus</h3>
- <label>Purkuvaiheen tarkastuksen huomiot</label><textarea id="wrDemolitionNotes" rows="5" placeholder="Kirjaa purkuvaiheen havainnot, alustojen kunto, mahdolliset vauriot ja sovitut jatkotoimet."></textarea>
- <div class="row no-print" style="margin-top:8px"><label class="filebtn" style="margin:0">＋ Lisää kuvia galleriasta<input type="file" accept="image/*" multiple data-wr-photo="demolition" hidden></label><label class="filebtn" style="margin:0">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="demolition" hidden></label></div><div id="wrPhotosDemolition"></div>
- <hr><h3>2. Vedeneristeiden tarkastus</h3>
- <p class="small">Kirjaa tarkastushavainnot ja lisää tarvittaessa valokuvat jokaisesta tarkastuskohdasta.</p>
- <div id="wetroomChecks">
-  <div class="wr-check"><label>Lattiakaadot</label><textarea id="wrFloorSlope" rows="2" placeholder="Havainnot ja mittaustulokset"></textarea><div class="row no-print"><label class="filebtn">＋ Lisää kuva(t)<input type="file" accept="image/*" multiple data-wr-photo="floorSlope" hidden></label><label class="filebtn">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="floorSlope" hidden></label></div><div id="wrPhotosFloorSlope"></div></div>
-  <div class="wr-check"><label>Tulvakynnys</label><textarea id="wrThreshold" rows="2" placeholder="Havainnot"></textarea><div class="row no-print"><label class="filebtn">＋ Lisää kuva(t)<input type="file" accept="image/*" multiple data-wr-photo="threshold" hidden></label><label class="filebtn">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="threshold" hidden></label></div><div id="wrPhotosThreshold"></div></div>
-  <div class="wr-check"><label>Kaivo</label><textarea id="wrDrain" rows="2" placeholder="Havainnot"></textarea><div class="row no-print"><label class="filebtn">＋ Lisää kuva(t)<input type="file" accept="image/*" multiple data-wr-photo="drain" hidden></label><label class="filebtn">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="drain" hidden></label></div><div id="wrPhotosDrain"></div></div>
-  <div class="wr-check"><label>Muut läpiviennit</label><textarea id="wrPenetrations" rows="2" placeholder="Havainnot"></textarea><div class="row no-print"><label class="filebtn">＋ Lisää kuva(t)<input type="file" accept="image/*" multiple data-wr-photo="penetrations" hidden></label><label class="filebtn">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="penetrations" hidden></label></div><div id="wrPhotosPenetrations"></div></div>
-  <div class="wr-check"><label>Valmistajan kalvopaksuusvaatimus ja toteuma</label><textarea id="wrFilmThickness" rows="2" placeholder="Valmistajan vaatimus sekä todettu toteuma"></textarea><div class="row no-print"><label class="filebtn">＋ Lisää kuva(t)<input type="file" accept="image/*" multiple data-wr-photo="filmThickness" hidden></label><label class="filebtn">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="filmThickness" hidden></label></div><div id="wrPhotosFilmThickness"></div></div>
-  <div class="wr-check"><label>Kalvonpaksuusmittaus ja tartunta</label><textarea id="wrAdhesion" rows="2" placeholder="Mittaus- ja tartuntahavainnot"></textarea><div class="row no-print"><label class="filebtn">＋ Lisää kuva(t)<input type="file" accept="image/*" multiple data-wr-photo="adhesion" hidden></label><label class="filebtn">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="adhesion" hidden></label></div><div id="wrPhotosAdhesion"></div></div>
- </div>
- <h3>Käytetyt materiaalit</h3>
- <label>Seinätasoite</label><input id="wrWallFiller">
- <label>Lattiatasoite</label><input id="wrFloorFiller">
- <label>Pohjuste</label><input id="wrPrimer">
- <label>Vedeneriste</label><input id="wrWaterproofing">
- <label>Nauhat ja läpivientikappaleet</label><input id="wrTapes">
- <label>Muut</label><input id="wrOtherMaterials">
- <div class="row no-print" style="margin-top:8px"><label class="filebtn" style="margin:0">＋ Lisää materiaalikuva(t)<input type="file" accept="image/*" multiple data-wr-photo="materials" hidden></label><label class="filebtn" style="margin:0">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="materials" hidden></label></div><div id="wrPhotosMaterials"></div>
- <hr><h3>3. Ovirako</h3>
- <label>Ovirakoa koskevat havainnot</label><textarea id="wrDoorGap" rows="2" placeholder="Havainnot ja mittaustulos"></textarea>
- <div class="row no-print" style="margin-top:8px"><label class="filebtn" style="margin:0">＋ Lisää kuva(t)<input type="file" accept="image/*" multiple data-wr-photo="doorGap" hidden></label><label class="filebtn" style="margin:0">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="doorGap" hidden></label></div><div id="wrPhotosDoorGap"></div>
- <hr><h3>4. Lopputarkastus (tarvittaessa)</h3>
- <label class="row" style="align-items:center;gap:8px"><input id="wrFinalEnabled" type="checkbox" style="width:auto"> Tee lopputarkastus</label>
- <div id="wrFinalSection" class="hidden"><label>Lopputarkastuksen huomiot</label><textarea id="wrFinalNotes" rows="4" placeholder="Valmiin märkätilan lopputarkastuksen havainnot ja mahdolliset puutteet"></textarea><div class="row no-print" style="margin-top:8px"><label class="filebtn" style="margin:0">＋ Lisää kuva(t)<input type="file" accept="image/*" multiple data-wr-photo="final" hidden></label><label class="filebtn" style="margin:0">＋ Ota kuva<input type="file" accept="image/*" capture="environment" data-wr-photo="final" hidden></label></div><div id="wrPhotosFinal"></div></div>
- <div class="row no-print" style="margin-top:18px"><button class="primary" id="saveWetroom">Tallenna pöytäkirja</button><button id="printWetroom">Tulosta / PDF</button></div>
 </section>
 <section class="card no-print">
  <h2>Tietojen varmuuskopiointi</h2>
