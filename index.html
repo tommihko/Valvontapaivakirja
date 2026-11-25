@@ -72,8 +72,9 @@ footer{max-width:760px;margin:0 auto;padding:0 14px}
  <label>Valvonnan havainnot</label><textarea id="observations" placeholder="Mitä havaitsit?"></textarea>
  <label>Puutteet ja korjaustarpeet</label><textarea id="defects" placeholder="Puutteet, poikkeamat ja edellytetyt korjaukset"></textarea>
  <label>Muut huomiot</label><textarea id="notes" placeholder="Muut asiat"></textarea>
- <hr><div class="row" style="align-items:center"><h3 style="flex:1;margin:0">Valokuvat <span class="small" id="photoCount"></span></h3><label class="filebtn no-print" style="margin:0">＋ Lisää kuvia<input id="photoInput" type="file" accept="image/*" capture="environment" multiple hidden></label></div>
- <p class="small">Valitse kamera tai galleria. Kuvat tallennetaan tähän puhelimeen.</p>
+ <hr><div class="row" style="align-items:center"><h3 style="flex:1;margin:0">Valokuvat <span class="small" id="photoCount"></span></h3></div>
+ <div class="row no-print" style="margin-top:8px"><label class="filebtn" style="margin:0">＋ Lisää galleriasta<input id="galleryInput" type="file" accept="image/*" multiple hidden></label><label class="filebtn" style="margin:0">＋ Ota kuva<input id="cameraInput" type="file" accept="image/*" capture="environment" hidden></label></div>
+ <p class="small">Voit valita aiemmin otettuja kuvia galleriasta tai ottaa uuden kuvan kameralla. Kuvat tallennetaan tähän puhelimeen.</p>
  <div id="photos"></div>
  <hr><div class="row" style="align-items:center"><h3 style="flex:1;margin:0">Sovitut toimenpiteet</h3><button id="addAction" class="no-print">＋ Lisää</button></div>
  <div id="actions"></div>
