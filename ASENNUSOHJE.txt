@@ -16,3 +16,6 @@ PÄIVITYS GITHUB PAGESIIN
 
 HUOMAUTUS TIETOJEN SÄILYMISESTÄ
 Sovelluksen aiemmat tiedot säilyvät laitteen selaimen paikallisessa tallennuksessa, koska tietokannan tunnistetta ei ole muutettu. Päivitys ei kuitenkaan korvaa säännöllisen varmuuskopioinnin tarvetta. Vie varmuuskopio ennen päivitystä varmuuden vuoksi.
+
+
+Päivitys 4: Kansilehdelle voi valita kohdekohtaisen suuren kansikuvan. Se ei näy työmaakäyntien kuvissa eikä saa kuvatekstiä tai kuvanumeroa. Yrityksen logo tulostuu automaattisesti kansilehden yläreunaan. Päivitys sisältää tiedoston yritys-logo.png.
